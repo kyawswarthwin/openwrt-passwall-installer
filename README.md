@@ -1,7 +1,6 @@
-
 # OpenWrt Passwall Installer
 
-This repository provides a shell script to easily install **Passwall** (either Passwall 1 or Passwall 2) on OpenWrt-based routers. The script automatically downloads the necessary keys, adds custom feeds, updates package lists, and installs the selected Passwall version.
+This repository provides a shell script to easily install **Passwall** (either Passwall 1 or Passwall 2) on OpenWrt-based routers. The script automatically downloads the necessary keys, adds custom feeds, updates package lists, installs required kernel modules, and installs the selected Passwall version.
 
 ## Features
 
@@ -9,6 +8,7 @@ This repository provides a shell script to easily install **Passwall** (either P
 - Automatically detects your OpenWrt version and architecture.
 - Adds appropriate custom feeds based on your system's architecture and version.
 - Automatically updates the package lists.
+- Installs required kernel modules for socket handling and transparent proxying.
 - Installs the chosen version of Passwall.
 
 ## Prerequisites
@@ -54,6 +54,8 @@ The script will:
 - Detect your OpenWrt version and architecture.
 - Add the necessary Passwall feeds.
 - Update the package lists.
+- Install `dnsmasq-full`.
+- Install required kernel modules for socket handling and transparent proxying.
 - Install the chosen version of Passwall.
 
 ## Troubleshooting
