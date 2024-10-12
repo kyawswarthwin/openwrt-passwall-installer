@@ -57,6 +57,24 @@ else
     exit 1
 fi
 
+# Remove dnsmasq and install dnsmasq-full
+echo "Removing dnsmasq and installing dnsmasq-full..."
+if opkg remove dnsmasq && opkg install dnsmasq-full; then
+    echo "dnsmasq replaced with dnsmasq-full successfully."
+else
+    echo "Error: Failed to install dnsmasq-full."
+    exit 1
+fi
+
+# Install required kernel modules
+echo "Installing required kernel modules..."
+if opkg install kmod-nft-socket && opkg install kmod-nft-tproxy; then
+    echo "Kernel modules installed successfully!"
+else
+    echo "Error: Failed to install kernel modules."
+    exit 1
+fi
+
 # Install the chosen version
 if [ "$choice" = "1" ]; then
     echo "Installing Passwall 1..."
@@ -75,5 +93,3 @@ else
         exit 1
     fi
 fi
-
-echo "Installation completed successfully!"
