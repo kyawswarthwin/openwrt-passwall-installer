@@ -40,13 +40,17 @@ else
     echo "Detected stable version $DISTRIB_RELEASE. Using architecture: $arch."
 fi
 
-# Add feeds to customfeeds.conf
+# Add feeds to customfeeds.conf if they are not already present
 echo "Adding Passwall feeds to customfeeds.conf..."
 for feed in passwall_luci passwall_packages passwall2; do
-    echo "Adding feed: $feed"
-    echo "src/gz $feed $base_url/$feed" >> /etc/opkg/customfeeds.conf
+    if ! grep -q "^src/gz $feed" /etc/opkg/customfeeds.conf; then
+        echo "Adding feed: $feed"
+        echo "src/gz $feed $base_url/$feed" >> /etc/opkg/customfeeds.conf
+    else
+        echo "Feed $feed already exists in customfeeds.conf, skipping."
+    fi
 done
-echo "All feeds added successfully."
+echo "All feeds checked and added successfully."
 
 # Update package lists
 echo "Updating package lists..."
